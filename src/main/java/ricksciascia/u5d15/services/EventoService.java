@@ -28,5 +28,8 @@ public class EventoService {
         return this.eventoRepository.findById(idEvento).orElseThrow(()-> new NotFoundException(idEvento));
     }
 
-    public
+    public void removeEventoById(long idEvento) {
+        Evento trovato = this.findEventoById(idEvento);
+        this.eventoRepository.delete(trovato);
+    }
 }

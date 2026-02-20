@@ -38,4 +38,11 @@ public class EventoController {
             return this.eventoService.saveEvento(payload,organizzatore);
         }
     }
+
+    @DeleteMapping("/{idEvento}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ORGANIZZATORE')")
+    public void deleteEvento(@PathVariable long idEvento) {
+        this.eventoService.removeEventoById(idEvento);
+    }
 }
