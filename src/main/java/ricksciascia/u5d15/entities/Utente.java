@@ -1,5 +1,6 @@
 package ricksciascia.u5d15.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -17,7 +18,8 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-//TODO: aggiungere notazione @JsonIgnoreProperties({""}) se farò endpoint per GET utenti
+@JsonIgnoreProperties({"accountNonExpired","accountNonLocked","authorities","credentialsNonExpired","enabled","password"})
+
 public class Utente implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
