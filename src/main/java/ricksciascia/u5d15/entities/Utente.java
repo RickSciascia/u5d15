@@ -5,6 +5,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "utenti")
@@ -12,8 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 //TODO: aggiungere notazione @JsonIgnoreProperties({""}) se farò endpoint per GET utenti
-//TODO: implementare UserDetails con conseguente metodo.
-public class Utente {
+public class Utente implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
@@ -47,5 +52,15 @@ public class Utente {
                 ", password='" + password + '\'' +
                 ", ruolo=" + ruolo +
                 '}';
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(this.ruolo.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
     }
 }
