@@ -27,4 +27,6 @@ public class EventoService {
     public Evento findEventoById(long idEvento) {
         return this.eventoRepository.findById(idEvento).orElseThrow(()-> new NotFoundException(idEvento));
     }
+
+    public
 }
